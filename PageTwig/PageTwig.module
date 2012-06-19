@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * ProcessWire Twig Module
+ *
+ * Adds a Twig render method to Page 
+ * Copyright (C) 2012 by Paul Sheean porl42@gmail.com
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ */
+
+class PageTwig extends WireData implements Module {
+
+	var $dirname;
+
+	public static function getModuleInfo() {
+		return array('title' => __('Twig Render'),
+				// Module Title
+				'summary' => __('Adds a Twig property to Page (page->twig).'),
+				// Module Summary
+				'version' => 101,
+				'singular' => true,
+				'autoload' => true,
+			);
+	}
+
+	protected $config;
+
+	public function init() {
+
+		$this->dirname = __DIR__;
+
+		// initialise Twig
+		require_once $this->dirname . '/Twig/Autoloader.php';
+		Twig_Autoloader::register();
+
+		// add twig property to page object
+		$this->addHookProperty('Page::twig', $this, 'renderTwigPage');
+	}
+
+	public function renderTwigPage($event) {
+		$loader = new Twig_Loader_Filesystem($this->dirname . '/../../views/');
+		$twig = new Twig_Environment($loader,
+				array('cache' => $this->dirname . '/../../assets/cache/twig/',
+						'auto_reload' => true,));
+		$event->return = $twig;
+	}
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}{{ page.get("headline|title") }}{% endblock %}</title>
+<meta name="description" content="{{ page.get('summary') }}" />
+<link rel="stylesheet" type="text/css" href="{{ config.urls.templates }}styles/main.css" />
+<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="{{ config.urls.templates }}styles/ie.css" />
+<![endif]-->
+<script type="text/javascript" src="{{ config.urls.templates }}scripts/jquery-1.4.2.min.js"></script>
+
+<script type="text/javascript" src="{{ config.urls.templates }}scripts/main.js"></script>	
+</head>
+<body>
+<p id='bgtitle'>{{ page.rootParent.title }}</p>
+<div id="masthead" class="masthead">
+
+		<div class="container">
+
+			<a href='{{ config.urls.root }}'><p id='logo'>ProcessWire</p></a>	
+
+    <ul id='topnav'>
+    	<li><a {% if child == page.rootParent %} class="on" {% endif %} href="{{ homepage.url }}">{{ homepage.title }}</a></li>
+        {% for child in homepage.children %}
+            <li><a {% if child == page.rootParent %} class="on" {% endif %} href="{{ child.url }}">{{ child.title }}</a></li>
+        {% endfor %}
+    </ul>
+	<ul id='breadcrumb'>
+	{% for parent in page.parents %}
+			<li><a href='{{ parent.url }}'>{{ parent.title }}</a> &gt; </li>
+	{% endfor %}	
+	</ul>
+	<h1 id='title'>{{ page.get("headline|title") }}</h1>
+	
+	<form id='search_form' action='{{ config.urls.root }}search/' method='get'>
+		<input type='text' name='q' id='search_query' value='' />
+		<button type='submit' id='search_submit'>Search</button>
+	</form>
+	
+	{% if homepage.get("images")|length > 0 %}
+		{% set image = homepage.images.getRandom() %} 
+		{% set thumb = image.size(232, 176) %} 	
+		<a href='{{ image.url }}'><img id='photo' src='{{ thumb.url }}' alt='{{ thumb.description }}' width='{{ thumb.width }}' height='{{ thumb.height }}' /></a>
+	{% endif %}
+	
+	</div>
+	</div>
+
+	<div id="content" class="content">
+	<div class="container">
+	<div id="sidebar">
+
+				{% if page.path != "/" and page.rootParent.numChildren > 0 %} 
+					<ul id='subnav' class='nav'>
+
+					{% for child in page.rootParent.children %}
+						{% if page == child %}
+							{% set class = 'on' %}
+						{% else %}
+							{% set class = '' %}
+						{% endif %}
+						<li><a class='{{ class }}' href='{{ child.url }}'>{{ child.title }}</a></li>	
+					{% endfor %}
+
+					</ul>
+				{% endif %}
+				<div class='sidebar_item'>
+					{% if page.get("sidebar") != "" %}
+						{{ page.get("sidebar")|raw }} 
+					{% else %}
+						{{ homepage.get("sidebar")|raw }} 
+					{% endif %}
+				</div>
+
+			</div><!--/sidebar-->
+
+			<div id="bodycopy">
+{% block content %}
+    Default Content...
+{% endblock %}
+				
+{% if page.numChildren > 0 %}
+	<ul class='nav'>
+	{% for child in page.children %}
+		<li><p><a href='{{ child.url }}'>{{ child.get("title") }}</a><br /><span class='summary'>{{ child.get("summary") }}</span></p></li>
+	{% endfor %}
+	</ul>
+{% endif %}
+
+			</div><!--/bodycopy-->
+
+		</div><!--/container-->
+
+	</div><!--/content-->
+
+	<div id="footer" class="footer">
+		<div class="container">
+			<p>&copy; {{ "now"|date("Y") }} <a href="http://www.ryancramer.com">Ryan Cramer Design, LLC</a></p>
+		</div>
+	</div>
+
+	{% if page.editable() %}
+		<a class='nav' id='editpage' href='{{ config.urls.admin }}page/edit/?id={{ page.id }}'>Edit</a> 
+	{% endif %}
+
+</body>
+</html>
