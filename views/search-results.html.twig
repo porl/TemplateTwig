@@ -1,0 +1,18 @@
+{% extends "basic-page.html.twig" %}
+
+{% block content %}
+	{% if matches|length > 0 %}
+		<h2>Found {{ matches|length }} pages matching your query:</h2> 
+			<ul class='nav'>
+				{% for match in matches %}
+					<li><p><a href='{{ match.url }}'>{{ match.title }}</a>
+						{% if match.get("summary") is not empty %}
+							<br />{{ match.get("summary") }}</p>
+						{% endif %}
+					</li>
+				{% endfor %}
+		</ul>
+	{% else %}
+		<h2>Sorry, no results were found.</h2>
+	{% endif %}
+{% endblock %}
