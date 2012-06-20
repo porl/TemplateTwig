@@ -7,7 +7,7 @@
 				{% for match in matches %}
 					<li><p><a href='{{ match.url }}'>{{ match.title }}</a>
 						{% if match.get("summary") is not empty %}
-							<br />{{ match.get("summary") }}</p>
+							<br />{{ match.get("summary")|raw }}</p>
 						{% endif %}
 					</li>
 				{% endfor %}

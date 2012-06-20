@@ -83,7 +83,7 @@
 			{% if page.numChildren > 0 %}
 				<ul class='nav'>
 					{% for child in page.children %}
-						<li><p><a href='{{ child.url }}'>{{ child.get("title") }}</a><br /><span class='summary'>{{ child.get("summary") }}</span></p></li>
+						<li><p><a href='{{ child.url }}'>{{ child.get("title") }}</a><br /><span class='summary'>{{ child.get("summary")|raw }}</span></p></li>
 					{% endfor %}
 				</ul>
 			{% endif %}
