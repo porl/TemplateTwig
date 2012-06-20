@@ -1,0 +1,22 @@
+{% extends "basic-page.html.twig" %}
+
+{% block content %}
+{% macro subpages(page) %}
+	{% if page.children|length > 0 %}
+		<ul>
+			{% for child in page.children %}
+            	<li><a href="{{ child.url }}">{{ child.title }}</a>
+            		{{ _self.subpages(child) }}
+            	</li>
+        {% endfor %}
+		</ul>
+	{% endif %}
+{% endmacro %}
+	
+<ul class='sitemap'>
+	<li><a href="{{ homepage.url }}">{{ homepage.title }}</a>
+    	{{ _self.subpages(homepage) }}
+    </li>
+</ul>
+
+{% endblock %}

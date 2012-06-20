@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ page.get("headline|title") }}
+{% endblock %}
+
+{% block content %}
+    {{page.body|raw}}
+{% endblock %}
+
+{% block sidebar_item %}
+	{% if page.get("sidebar") is not empty %}
+		{{ page.get("sidebar")|raw }} 
+	{% else %}
+		{{ parent() }} 
+	{% endif %}
+{% endblock %}
