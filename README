@@ -3,7 +3,9 @@ Copy PageTwig directory to site/modules
 Download Twig from http://twig.sensiolabs.org/
 Extract and copy Twig directory from lib to PageTwig directory (ie. PageTwig/Twig)
 Create directory site/assets/cache/twig
-Copy contents of templates directory to site/templates
-	(these are some sample Twig views and controllers that replace the default site frontend)
-Enable Twig module
+Copy views directory to site (this contains some sample Twig views)
+Copy files from templates directory to site/templates (these are the controllers that call the Twig views)
 Create pages that use the twig templates.
+
+NOTE: As Twig handles html escaping etc itself, you can usually remove any htmlspecialchars filters from your fields.
+If you don't do this you may run into double-escaping issues.
