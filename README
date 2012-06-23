@@ -1,5 +1,5 @@
 Installation:
-Copy PageTwig directory to site/modules
+Copy TemplateTwig directory to site/modules
 Download Twig from http://twig.sensiolabs.org/
 Extract and copy Twig directory from lib to PageTwig directory (ie. PageTwig/Twig)
 Create directory site/assets/cache/twig
