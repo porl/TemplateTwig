@@ -9,7 +9,7 @@
  * 
  */
 
-class PageTwig extends WireData implements Module {
+class TemplateTwig extends WireData implements Module {
 
 	var $dirname;
 
