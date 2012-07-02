@@ -1,4 +1,8 @@
-{% extends "basic-page.html.twig" %}
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ page.get("headline|title") }}
+{% endblock %}
 
 {% block content %}
 <h2>Please enter a search term in the search box (upper right corner)</h2>

@@ -30,6 +30,9 @@ class TemplateTwig extends WireData implements Module {
 		require_once wire('config')->paths->TemplateTwig . 'Twig/Autoloader.php';
 		Twig_Autoloader::register();
 
+		//enable alternate isset() functionality to Page to work with Twig
+		Page::$issetHas = true;
+		
 		// add twig property to page object
 		$this->addHookProperty('Page::twig', $this, 'renderTwigPage');
 		

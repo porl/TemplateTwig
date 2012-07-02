@@ -4,6 +4,14 @@
 	{{ page.get("headline|title") }}
 {% endblock %}
 
+{% block summary %}
+{% if page.summary is not empty %}
+	{{- page.summary -}}
+{% else %}
+	{{- parent() -}}
+{% endif %}
+{% endblock %}
+
 {% block content %}
     {{page.body|raw}}
 {% endblock %}

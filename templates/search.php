@@ -2,10 +2,6 @@
 
 include(__DIR__ . '/twigdefaults.inc');
 
-$twig_vars['page']->body = $page->body;
-$twig_vars['page']->title = $page->title;
-
-
 if($q = $sanitizer->selectorValue($input->get->q)) {
 
 	// Send our sanitized query 'q' variable to the whitelist where it will be

@@ -2,11 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{% block title %}{{ homepage.get("title") }}{% endblock %}</title>
+<title>{% block title %}{{ homepage.title }}{% endblock %}</title>
 
-{% if page.get('summary') is not empty %}
-	<meta name="description" content="{{ page.get('summary') }}" />
-{% endif %}
+
+
+	<meta name="description" content="{% block summary %}{{- homepage.summary -}}{% endblock %}" />
+
+
 
 <link rel="stylesheet" type="text/css" href="{{ config.urls.templates }}styles/main.css" />
 <!--[if IE]>
