@@ -1,13 +1,11 @@
 TemplateTwig
 ============
-
 Adds a Twig render method to Page  
 Copyright (C) 2012 by Paul Sheean porl42@gmail.com  
 Licensed under GNU/GPL v2, see LICENSE.TXT
 
 Installation
 ------------
-
 * Copy *TemplateTwig* directory to *site/modules*
 * Download Twig from http://twig.sensiolabs.org/
 * Extract and copy *Twig* directory from *lib* to *PageTwig* directory (ie. *PageTwig/Twig*)
