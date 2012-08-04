@@ -1,11 +1,11 @@
 TemplateTwig
 ============
 
-Copyright *Paul Sheean* 2012
+Adds a Twig render method to Page 
 
-Released under **GPL License Version 2**
+Copyright (C) 2012 by Paul Sheean porl42@gmail.com
 
-See *LICENSE.txt* for details
+Licensed under GNU/GPL v2, see LICENSE.TXT
 
 Installation
 ------------
