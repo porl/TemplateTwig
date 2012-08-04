@@ -16,6 +16,5 @@ Installation:
 * Enable TemplateTwig module in ProcessWire
 
 * Create pages that use the twig templates.
-
-NOTE: As Twig handles html escaping etc itself, you can usually remove any htmlspecialchars filters from your fields.
+	NOTE: As Twig handles html escaping etc itself, you can usually remove any htmlspecialchars filters from your fields.
 	If you don't do this you may run into double-escaping issues.
