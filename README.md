@@ -8,7 +8,7 @@ Installation
 ------------
 * Copy *TemplateTwig* directory to *site/modules*
 * Download Twig from http://twig.sensiolabs.org/
-* Extract and copy *Twig* directory from *lib* to *PageTwig* directory (ie. *PageTwig/Twig*)
+* Extract and copy *Twig* directory from *lib* to *TemplateTwig* directory (ie. *TemplateTwig/Twig*)
 * Ensure http daemon has write access to *site/assets/cache* dir (this should be the case anyway)
 * Copy *templates* directory to *site* (this contains some sample Twig templates and views)  
 	**Note:** By default these templates overwrite the standard site-default ones to use twig.
