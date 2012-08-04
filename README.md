@@ -2,8 +2,10 @@ TemplateTwig
 ============
 
 Copyright *Paul Sheean* 2012
-Released under GPL License Version 2
-See LICENSE.txt for details
+
+Released under **GPL License Version 2**
+
+See *LICENSE.txt* for details
 
 Installation
 ------------
