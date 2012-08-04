@@ -12,7 +12,7 @@ Installation
 
 * Copy *TemplateTwig* directory to *site/modules*
 
-* Download *Twig* from *http://twig.sensiolabs.org/*
+* Download Twig from http://twig.sensiolabs.org/
 
 * Extract and copy *Twig* directory from *lib* to *PageTwig* directory (ie. *PageTwig/Twig*)
 
