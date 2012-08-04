@@ -11,14 +11,12 @@
 
 class TemplateTwig extends WireData implements Module {
 
-	var $dirname;
-
 	public static function getModuleInfo() {
 		return array('title' => __('Twig Render'),
 				// Module Title
 				'summary' => __('Adds a Twig property to Page (page->twig).'),
 				// Module Summary
-				'version' => 101,
+				'version' => 102,
 				'singular' => true,
 				'autoload' => true,
 			);
