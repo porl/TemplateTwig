@@ -1,10 +1,8 @@
 TemplateTwig
 ============
 
-Adds a Twig render method to Page 
-
-Copyright (C) 2012 by Paul Sheean porl42@gmail.com
-
+Adds a Twig render method to Page  
+Copyright (C) 2012 by Paul Sheean porl42@gmail.com  
 Licensed under GNU/GPL v2, see LICENSE.TXT
 
 Installation
