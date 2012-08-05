@@ -1,7 +1,7 @@
-{% extends "layout.html.twig" %}
+{% extends "basic-page.html.twig" %}
 
-{% block title %}
-	{{ page.get("headline|title") }}
+{% block summary %}
+	{{ homepage.summary }}
 {% endblock %}
 
 {% block content %}

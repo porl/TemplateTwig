@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__ . '/twigdefaults.inc');
+include(__DIR__ . '/sitedefaults.inc');
 
 if($q = $sanitizer->selectorValue($input->get->q)) {
 

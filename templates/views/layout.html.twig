@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <title>{% block title %}{{ homepage.title }}{% endblock %}</title>
 
-
-
-	<meta name="description" content="{% block summary %}{{- homepage.summary -}}{% endblock %}" />
-
-
+<meta name="description" content="{% block summary %}{{- homepage.summary -}}{% endblock %}" />
 
 <link rel="stylesheet" type="text/css" href="{{ config.urls.templates }}styles/main.css" />
 <!--[if IE]>
@@ -17,7 +13,9 @@
 
 <script type="text/javascript" src="{{ config.urls.templates }}scripts/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="{{ config.urls.templates }}scripts/main.js"></script>	
+{% block scripts %}{# placeholder for per-page scripts #}{% endblock %}
 </head>
+
 <body>
 <p id='bgtitle'>{{ page.rootParent.title }}</p>
 
@@ -41,17 +39,16 @@
 		<h1 id='title'>{{ page.get("headline|title") }}</h1>
 		
 		<form id='search_form' action='{{ config.urls.root }}search/' method='get'>
-			<input type='text' name='q' id='search_query' value='' />
+			<input type='text' name='q' id='search_query' value='{{ input.whitelist('q') }}' />
 			<button type='submit' id='search_submit'>Search</button>
 		</form>
 		
-		{% if homepage.get("images")|length > 0 %}
-			{% set image = homepage.images.getRandom() %} 
-			{% set thumb = image.size(232, 176) %} 	
-			<a href='{{ image.url }}'><img id='photo' src='{{ thumb.url }}' alt='{{ thumb.description }}' width='{{ thumb.width }}' height='{{ thumb.height }}' /></a>
+		{% if homepage.images|length > 0 %}
+			<a href='{{ randomImage.url }}'><img id='photo' src='{{ randomThumb.url }}' alt='{{ randomThumb.description }}' width='{{ randomThumb.width }}' height='{{ randomThumb.height }}' /></a>
 		{% endif %}
 	</div><!--container-->
 </div><!--/masthead-->
+
 <div id="content" class="content">
 	<div class="container">
 		<div id="sidebar">
@@ -71,7 +68,7 @@
 				
 				<div class='sidebar_item'>
 					{% block sidebar_item %}
-						{{ homepage.get("sidebar")|raw }} 
+						{{ homepage.sidebar|raw }} 
 					{%  endblock %}
 				</div><!--/sidebar_item-->
 			{% endblock %}
@@ -79,13 +76,13 @@
 		
 		<div id="bodycopy">
 			{% block content %}
-			    {{  homepage.get("body") }}
+			    {{  homepage.body }}
 			{% endblock %}
 			
 			{% if page.numChildren > 0 %}
 				<ul class='nav'>
 					{% for child in page.children %}
-						<li><p><a href='{{ child.url }}'>{{ child.get("title") }}</a><br /><span class='summary'>{{ child.get("summary")|raw }}</span></p></li>
+						<li><p><a href='{{ child.url }}'>{{ child.title }}</a><br /><span class='summary'>{{ child.summary|raw }}</span></p></li>
 					{% endfor %}
 				</ul>
 			{% endif %}

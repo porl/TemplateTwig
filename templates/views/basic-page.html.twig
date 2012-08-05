@@ -1,11 +1,15 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	{{ page.get("headline|title") }}
+	{% if page.get("headline") is not empty %}
+		{{ page.headline }}
+	{% else %}
+		{{ page.title }}
+	{% endif %}
 {% endblock %}
 
 {% block summary %}
-{% if page.summary is not empty %}
+{% if page.get("summary") is not empty %}
 	{{- page.summary -}}
 {% else %}
 	{{- parent() -}}
@@ -18,7 +22,7 @@
 
 {% block sidebar_item %}
 	{% if page.get("sidebar") is not empty %}
-		{{ page.get("sidebar")|raw }} 
+		{{ page.sidebar|raw }} 
 	{% else %}
 		{{ parent() }} 
 	{% endif %}

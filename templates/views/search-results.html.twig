@@ -1,8 +1,4 @@
-{% extends "layout.html.twig" %}
-
-{% block title %}
-	{{ page.get("headline|title") }}
-{% endblock %}
+{% extends "search.html.twig" %}
 
 {% block content %}
 	{% if matches|length > 0 %}
