@@ -1,14 +1,14 @@
 TemplateTwig
 ============
 Adds a Twig render method to Page  
+For more information on Twig visit http://twig.sensiolabs.org/
 Copyright (C) 2012 by Paul Sheean porl42@gmail.com  
-Licensed under GNU/GPL v2, see LICENSE.TXT
+Licensed under GNU/GPL v2, see LICENSE.txt  
+For Twig license see LICENSE.twig.txt
 
 Installation
 ------------
 * Copy `TemplateTwig` directory to `site/modules`
-* Download Twig from http://twig.sensiolabs.org/
-* Extract and copy `Twig` directory from `lib` to `TemplateTwig` directory (ie. `TemplateTwig/Twig`)
 * Ensure http daemon has write access to `site/assets/cache` dir (this should be the case anyway)
 * Copy `templates` directory to `site` (this contains some sample Twig templates and views)  
 	**Note:** By default these templates overwrite the standard site-default ones to use twig.
