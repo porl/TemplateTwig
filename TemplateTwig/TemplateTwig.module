@@ -9,7 +9,7 @@
  * 
  */
 
-class TemplateTwig extends WireData implements Module {
+class TemplateTwig extends WireData implements Module, ConfigurableModule {
 
 	public static function getModuleInfo() {
 		return array('title' => __('Twig Render'),
@@ -22,26 +22,113 @@ class TemplateTwig extends WireData implements Module {
 			);
 	}
 
+	public static function getDefaults() {
+		   return array(
+				'cacheEnable' => true,
+				'cacheDir' => "twig/",
+				'cacheAutoReload' => true,
+		   		'viewsDir' => "views/",
+		   		'strictVariables' => false,
+		   		'autoEscape' => true
+		);
+	}
+	
 	public function init() {
 
 		// initialise Twig
 		require_once wire('config')->paths->TemplateTwig . 'Twig/Autoloader.php';
 		Twig_Autoloader::register();
 
-		//enable alternate isset() functionality to Page to work with Twig
+		//enable alternate functionality towork with Twig
 		Page::$issetHas = true;
+		wire('config')->disableUnknownMethodException = true;
 		
 		// add twig property to page object
 		$this->addHookProperty('Page::twig', $this, 'renderTwigPage');
 		
-		
 	}
 
 	public function renderTwigPage($event) {
-		$loader = new Twig_Loader_Filesystem(wire('config')->paths->templates . 'views/');
+		//set up environment vars
+		$cache = $this->data['cacheEnable'] ? wire('config')->paths->cache . $this->data['cacheDir'] : false;
+		$viewsDir = wire('config')->paths->templates . $this->data['viewsDir'];
+		
+		$loader = new Twig_Loader_Filesystem($viewsDir);
 		$twig = new Twig_Environment($loader,
-				array('cache' => wire('config')->paths->cache . 'twig/',
-						'auto_reload' => true,));
+				array(
+						'cache' => $cache,
+						'auto_reload' => $this->data['cacheAutoReload'],
+						'strict_variables' => $this->data['strictVariables'],
+						'autoescape' => $this->data['AutoEscape'],
+				)
+			);
 		$event->return = $twig;
 	}
+	
+	static public function getModuleConfigInputfields(Array $data) {
+		$fields = new InputfieldWrapper();
+		$modules = wire('modules');
+		
+		//default values
+		$data = array_merge(self::getDefaults(), $data);
+		
+		// cache enabled field
+		$field = $modules->get("InputfieldCheckbox");
+		$field->name = "cacheEnable";
+		$field->label = "Enable Cache";
+		$field->description = "Enable Twig cache";
+		$field->value = 1; // providing a "checked" value for the checkbox is necessary
+		$field->attr('checked', empty($data['cacheEnable']) ? '' : 'checked');
+		$fields->add($field);
+		
+		
+		//cache directory name
+		$field = $modules->get("InputfieldText");
+		$field->name = 'cacheDir';
+		$field->label = "Cache Directory";
+		$field->description = "Directory name for Twig cache (relative to site/assets/cache/)";
+		$field->size = 45;
+		$field->value = $data['cacheDir'];
+		$fields->append($field);
+		
+		//cache auto reload
+		$field = $modules->get("InputfieldCheckbox");
+		$field->name = "cacheAutoReload";
+		$field->label = "Auto Reload Twig Cache";
+		$field->description = "Reload cache on Twig template modification";
+		$field->value = 1; // providing a "checked" value for the checkbox is necessary
+		$field->attr('checked', empty($data['cacheAutoReload']) ? '' : 'checked');
+		$fields->add($field);
+		
+		//views directory name
+		$field = $modules->get("InputfieldText");
+		$field->name = 'viewsDir';
+		$field->label = "Views Directory";
+		$field->description = "Directory name for Twig views (relative to site/templates/)";
+		$field->size = 45;
+		$field->value = $data['viewsDir'];
+		$fields->append($field);
+		
+		//enable strict variables
+		$field = $modules->get("InputfieldCheckbox");
+		$field->name = "strictVariables";
+		$field->label = "Enable Strict Variables";
+		$field->description = "Throw exceptions for invalid variables";
+		$field->notes = "When set to false, Twig will ignore variables, attributes or methods that do not exist and replace them with a null value. When set to true, Twig will throw an exception instead.";
+		$field->value = 1; // providing a "checked" value for the checkbox is necessary
+		$field->attr('checked', empty($data['strictVariables']) ? '' : 'checked');
+		$fields->add($field);
+		
+		//auto escape variables
+		$field = $modules->get("InputfieldCheckbox");
+		$field->name = "autoEscape";
+		$field->label = "Auto Escape Twig variables";
+		$field->description = "Automatically escape variables in Twig templates";
+		$field->value = 1; // providing a "checked" value for the checkbox is necessary
+		$field->attr('checked', empty($data['autoEscape']) ? '' : 'checked');
+		$fields->add($field);
+	
+		return $fields;
+	}
+	
 }
