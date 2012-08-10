@@ -28,7 +28,6 @@ class TemplateTwig extends WireData implements Module, ConfigurableModule {
 				'cacheDir' => "twig/",
 				'cacheAutoReload' => true,
 		   		'viewsDir' => "views/",
-		   		'strictVariables' => false,
 		   		'autoEscape' => true
 		);
 	}
@@ -39,10 +38,6 @@ class TemplateTwig extends WireData implements Module, ConfigurableModule {
 		require_once wire('config')->paths->TemplateTwig . 'Twig/Autoloader.php';
 		Twig_Autoloader::register();
 
-		//enable alternate functionality towork with Twig
-		Page::$issetHas = true;
-		wire('config')->disableUnknownMethodException = true;
-		
 		// add twig property to page object
 		$this->addHookProperty('Page::twig', $this, 'renderTwigPage');
 		
@@ -53,12 +48,15 @@ class TemplateTwig extends WireData implements Module, ConfigurableModule {
 		$cache = $this->data['cacheEnable'] ? wire('config')->paths->cache . $this->data['cacheDir'] : false;
 		$viewsDir = wire('config')->paths->templates . $this->data['viewsDir'];
 		
+		//enable alternate functionality to work with Twig
+		Page::$issetHas = true;
+		wire('config')->disableUnknownMethodException = false
+		
 		$loader = new Twig_Loader_Filesystem($viewsDir);
 		$twig = new Twig_Environment($loader,
 				array(
 						'cache' => $cache,
 						'auto_reload' => $this->data['cacheAutoReload'],
-						'strict_variables' => $this->data['strictVariables'],
 						'autoescape' => $this->data['AutoEscape'],
 				)
 			);
@@ -108,16 +106,6 @@ class TemplateTwig extends WireData implements Module, ConfigurableModule {
 		$field->size = 45;
 		$field->value = $data['viewsDir'];
 		$fields->append($field);
-		
-		//enable strict variables
-		$field = $modules->get("InputfieldCheckbox");
-		$field->name = "strictVariables";
-		$field->label = "Enable Strict Variables";
-		$field->description = "Throw exceptions for invalid variables";
-		$field->notes = "When set to false, Twig will ignore variables, attributes or methods that do not exist and replace them with a null value. When set to true, Twig will throw an exception instead.";
-		$field->value = 1; // providing a "checked" value for the checkbox is necessary
-		$field->attr('checked', empty($data['strictVariables']) ? '' : 'checked');
-		$fields->add($field);
 		
 		//auto escape variables
 		$field = $modules->get("InputfieldCheckbox");

@@ -36,7 +36,13 @@
 			{% endfor %}	
 		</ul>
 		
-		<h1 id='title'>{{ page.get("headline|title") }}</h1>
+		<h1 id='title'>
+			{% if page.headline is not empty %}
+				{{ page.headline }}
+			{% else %}
+				{{ page.title }}
+			{% endif %}
+		</h1>
 		
 		<form id='search_form' action='{{ config.urls.root }}search/' method='get'>
 			<input type='text' name='q' id='search_query' value='{{ input.whitelist('q') }}' />
@@ -96,7 +102,7 @@
 	</div>
 </div><!--/footer-->
 
-{% if page.editable() %}
+{% if page.editable %}
 	<a class='nav' id='editpage' href='{{ config.urls.admin }}page/edit/?id={{ page.id }}'>Edit</a> 
 {% endif %}
 </body>
