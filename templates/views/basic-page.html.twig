@@ -1,11 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	{% if page.get("headline") is not empty %}
-		{{ page.headline }}
-	{% else %}
-		{{ page.title }}
-	{% endif %}
+    {{ page.get("headline|title") }}
 {% endblock %}
 
 {% block summary %}

@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__ . '/sitedefaults.inc');
+require(dirname(__FILE__) . '/sitedefaults.inc');
 
 if($q = $sanitizer->selectorValue($input->get->q)) {
 
@@ -18,10 +18,3 @@ if($q = $sanitizer->selectorValue($input->get->q)) {
 } else {
 	echo $page->twig->render('search.html.twig', $twig_vars);
 }
-
-
-
-
-
-
-

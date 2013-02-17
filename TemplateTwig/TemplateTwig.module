@@ -50,7 +50,7 @@ class TemplateTwig extends WireData implements Module, ConfigurableModule {
 		
 		//enable alternate functionality to work with Twig
 		Page::$issetHas = true;
-		wire('config')->disableUnknownMethodException = false
+		wire('config')->disableUnknownMethodException = false;
 		
 		$loader = new Twig_Loader_Filesystem($viewsDir);
 		$twig = new Twig_Environment($loader,
