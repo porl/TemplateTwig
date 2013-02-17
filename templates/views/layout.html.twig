@@ -37,11 +37,7 @@
 		</ul>
 		
 		<h1 id='title'>
-			{% if page.headline is not empty %}
-				{{ page.headline }}
-			{% else %}
-				{{ page.title }}
-			{% endif %}
+            {{ page.get("headline|title") }}
 		</h1>
 		
 		<form id='search_form' action='{{ config.urls.root }}search/' method='get'>
